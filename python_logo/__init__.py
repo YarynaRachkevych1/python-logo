@@ -7,6 +7,7 @@ def logo() -> str:
     """Returns logo string"""
     return "logo"
 
+
 def create_app():
     """Create and configure the Flask application.
 
