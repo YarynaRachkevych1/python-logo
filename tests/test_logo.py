@@ -98,7 +98,10 @@ def test_else():
 def test_variables():
     variables_input = "make var 100 forward :var"
     variables_response = [{"name": "forward", "value": 100}]
+    variables_expr_input = "make var 20 + 20 + 20 forward :var"
+    variables_expr_response = [{"name": "forward", "value": 60}]
     assert list(run(variables_input)) == variables_response
+    assert list(run(variables_expr_input)) == variables_expr_response
 
 
 def test_all():

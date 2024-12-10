@@ -54,8 +54,8 @@ class Interpreter:
                         else:
                             yield from self._interpret(command["else_commands"])
                     case "forward" | "backward" | "left" | "right":
-                        command["value"] = self._evaluate(command["value"])
-                        yield command
+                        evaluated_value = self._evaluate(command["value"])
+                        yield {**command, "value": evaluated_value}
                     case "hideturtle" | "showturtle" | "penup" | "pendown":
                         yield command
                     case _:
@@ -63,7 +63,7 @@ class Interpreter:
         except KeyError as err:
             raise InterpreterInvalidTreeError from err
 
-    def _evaluate(self, value: int | str) -> int:
+    def _evaluate(self, value: int | str) -> int | None:
         """Evaluates the value of the possible variable.
 
         Args:
@@ -72,12 +72,32 @@ class Interpreter:
         Returns:
             int: Value of the possible variable.
         """
-        if isinstance(value, str):
+        # Value is  just a number
+        if isinstance(value, int):
+            return value
+
+        # Value is a single variable from dictionary
+        if not isinstance(value, list):
             try:
                 return self._variables[value]
             except KeyError as err:
                 raise InterpreterUnboundVariableError(value) from err
-        return value
+
+        # Value is an expression
+        value = value[0]
+        for command in value:
+            match command:
+                case "arithmetic_op":
+                    operator = value["arithmetic_op"]
+                    operand1 = value["operands"][0]
+                    operand2 = value["operands"][1]
+                    if operator == "+":
+                        return self._evaluate(self._evaluate(operand1)
+                                              + self._evaluate(operand2))
+                    if operator == "-":
+                        return self._evaluate(self._evaluate(operand1)
+                                              - self._evaluate(operand2))
+        return None
 
     def __iter__(self) -> Iterator[dict]:
         """Iterates over commands and interprets them.

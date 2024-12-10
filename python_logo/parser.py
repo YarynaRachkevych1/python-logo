@@ -2,37 +2,7 @@ import lark.exceptions
 from lark import Lark, Transformer
 
 from .exceptions import ParserInvalidCommandError, ParserUnexpectedTokenError
-
-_LOGO_GRAMMAR = """
-start: command+
-command: (no_arg_command) | (one_arg_command) \
-         | (repeat) | (if_command) | (make)
-
-showturtle: "showturtle" | "st"
-hideturtle: "hideturtle" | "ht"
-penup: "penup" | "pu"
-pendown: "pendown" | "pd"
-no_arg_command: showturtle | hideturtle | penup | pendown
-forward: "forward" | "fd"
-backward: "backward" | "bk"
-left: "left" | "lt"
-right: "right" | "rt"
-one_arg_command: (forward | backward | left | right) (number | variable)
-repeat: "repeat" (number | variable) "[" command+ "]"
-if_command: "if" (true | false) "[" command+ "]" ((else_command) "[" command+ "]")?
-make: "make" var (number | variable)
-var: WORD
-variable: ":" var
-else_command: "else"
-true: "true" | "True"
-false: "false" | "False"
-number: SIGNED_INT
-
-%import common.SIGNED_INT
-%import common.WORD
-%import common.WS
-%ignore WS
-"""
+from .grammar import _LOGO_GRAMMAR
 
 
 class _LogoJsonTransformer(Transformer):
@@ -120,6 +90,21 @@ class _LogoJsonTransformer(Transformer):
     def variable(self, items: list) -> str:
         return str(items[0])
 
+    def plus(self, items: list) -> str:  # noqa: ARG002
+        return "+"
+
+    def minus(self, items: list) -> str:  # noqa: ARG002
+        return "-"
+
+    def operator(self, items: list) -> str:
+        return items[0]
+
+    def term(self, items: list) -> str:
+        return items[0]
+
+    def expression(self, items: list) -> str:
+        operator = items[1]
+        return [{"arithmetic_op": operator, "operands": [items[0], items[2]]}]
 
 def parse(code: str) -> dict:
     """Parses the given Logo code and returns its JSON representation.
