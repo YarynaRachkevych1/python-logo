@@ -1,7 +1,15 @@
+<script module>
+  let runningState = $state(false);
+
+  export function setRunningState(state) {
+    runningState = state;
+  }
+</script>
+
 <script>
   import Icon from "./Icon.svelte";
   import { getCode, setCode } from "./Textarea.svelte";
-  import { runTurtle, resetTurtle } from "./Turtle.svelte";
+  import { runTurtle, stopTurtle, resetTurtle } from "./Turtle.svelte";
   import { toastSuccess } from "./Toast.svelte";
 
   let input;
@@ -11,7 +19,12 @@
     runTurtle(getCode());
   }
 
+  function handleStop() {
+    stopTurtle();
+  }
+
   function handleReset() {
+    stopTurtle();
     resetTurtle();
   }
 
@@ -43,13 +56,19 @@
 <div>
   <div class="button-bar d-flex align-items-center justify-content-around">
     <div class="d-flex space-around p-0 gap-2">
-      <button class="p-0 m-0" title="Run code" onclick={handleRun}>
-        <Icon name="run" />
-      </button>
-      <button class="p-0 m-0" title="Run command">
+      {#if !runningState}
+        <button class="p-0 m-0" title="Run" onclick={handleRun}>
+          <Icon name="run" />
+        </button>
+      {:else}
+        <button class="p-0 m-0" title="Stop" onclick={handleStop}>
+          <Icon name="pause" />
+        </button>
+      {/if}
+      <button class="p-0 m-0" title="Run debug" disabled>
         <Icon name="runDebug" />
       </button>
-      <button class="p-0 m-0" title="Pause">
+      <button class="p-0 m-0" title="Stop debug" disabled>
         <Icon name="pause" />
       </button>
       <button class="p-0 m-0" title="Reset" onclick={handleReset}>
@@ -57,6 +76,14 @@
       </button>
     </div>
     <div class="d-flex p-0 gap-2">
+      <button
+        class="p-0 m-0"
+        title="Download code"
+        disabled={!getCode().trim()}
+        onclick={handleDownload}
+      >
+        <Icon name="downloadCode" />
+      </button>
       <button class="p-0 m-0" title="Upload code">
         <input
           id="upload-code-input"
@@ -69,14 +96,6 @@
         <label for="upload-code-input">
           <Icon name="uploadCode" />
         </label>
-      </button>
-      <button
-        class="p-0 m-0"
-        title="Download code"
-        disabled={!getCode().trim()}
-        onclick={handleDownload}
-      >
-        <Icon name="downloadCode" />
       </button>
     </div>
   </div>
@@ -95,26 +114,20 @@
     user-select: none;
     border: none;
     background-color: transparent;
+    color: #cae5be;
     transition:
       scale 0.2s,
-      filter 0.05s;
-    filter: invert(90%) sepia(3%) saturate(1480%) hue-rotate(53deg)
-      brightness(113%) contrast(106%);
+      color 0.05s;
   }
-
   button:enabled:hover {
     scale: 1.1;
-    filter: invert(90%) sepia(16%) saturate(674%) hue-rotate(62deg)
-      brightness(103%) contrast(96%);
+    color: #92da8c;
   }
   button:enabled:active {
     scale: 1.05;
-    filter: invert(90%) sepia(16%) saturate(674%) hue-rotate(62deg)
-      brightness(113%) contrast(96%);
+    color: #92da8c;
   }
   button:disabled {
-    filter: invert(90%) sepia(3%) saturate(1480%) hue-rotate(53deg)
-      brightness(113%) contrast(106%);
     opacity: 0.5;
   }
 </style>

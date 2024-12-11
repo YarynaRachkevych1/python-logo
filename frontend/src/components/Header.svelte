@@ -17,7 +17,6 @@
 <style>
   .header {
     background: linear-gradient(90deg, #70f1c9 20%, #26b1b7 100%);
-    font-family: Ubuntu, sans-serif;
     color: white;
     height: 80px;
     z-index: 10;

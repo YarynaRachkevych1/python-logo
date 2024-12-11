@@ -20,5 +20,9 @@ def test_connect(client):
 def test_run(client):
     client.emit("run", "fd 100")
     received = client.get_received()
-    assert received[0]["name"] == "execute"
-    assert received[0]["args"][0] == {"name": "forward", "value": 100}
+    assert received[0]["name"] == "task"
+    assert received[0]["args"][0] == {"status": "running"}
+    assert received[1]["name"] == "execute"
+    assert received[1]["args"][0] == {"name": "forward", "value": 100}
+    assert received[2]["name"] == "task"
+    assert received[2]["args"][0] == {"status": "done"}

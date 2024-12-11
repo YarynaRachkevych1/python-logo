@@ -4,7 +4,7 @@
 Dockerfile
 .dockerignore
 .pre-commit-config.yaml
-.nvmrc
+./frontend/.nvmrc
 
 # Created by https://www.toptal.com/developers/gitignore/api/python
 # Edit at https://www.toptal.com/developers/gitignore?templates=python

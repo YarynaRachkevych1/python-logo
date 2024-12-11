@@ -15,16 +15,14 @@
       title="License"
       onclick={() => (showLicenseModal = true)}
     >
-      <Icon class="pe-1" name="license" />
-      License
+      <Icon name="license" message="License" />
     </button>
     <button
       class="p-0 m-0 text-nowrap"
       title="Contact"
       onclick={() => (showContactModal = true)}
     >
-      <Icon class="pe-1" name="contact" />
-      Contact
+      <Icon name="contact" message="Contact" />
     </button>
     <a
       href="https://github.com/YarynaRachkevych1/python-logo"
@@ -32,8 +30,7 @@
       rel="noopener noreferrer"
     >
       <button class="p-0 m-0 text-nowrap" title="Visit our GitHub">
-        <Icon class="pe-1" name="github" />
-        Visit our GitHub
+        <Icon name="github" message="Visit our GitHub" />
       </button>
     </a>
   </div>
@@ -50,9 +47,9 @@
     If you have any questions or suggestions, feel free to contact us:
     <ul>
       <li>Krystian Ćwikliński: krystian.samaa@gmail.com</li>
-      <li>Mikołaj Kalitka: mkalitka@gmail.com</li>
-      <li>Yaryna Rachkevych: yaryna@gmail.com</li>
-      <li>Magda Tytoń: magda@gmail.com</li>
+      <li>Mikołaj Kalitka: mikolaj.kalitka@proton.me</li>
+      <li>Yaryna Rachkevych: rarynka28@gmail.com</li>
+      <li>Magda Tytoń: magdaeelna@gmail.com</li>
     </ul>
   </Modal>
 {/if}
@@ -68,22 +65,18 @@
     border: none;
     cursor: pointer;
     background-color: transparent;
+    color: #cae5be;
+    font-weight: bold;
     transition:
       scale 0.2s,
-      filter 0.05s;
-    filter: invert(90%) sepia(3%) saturate(1480%) hue-rotate(53deg)
-      brightness(113%) contrast(106%);
-    font-family: "Ubuntu", sans-serif;
-    font-weight: bold;
+      color 0.05s;
   }
   button:hover {
     scale: 1.1;
-    filter: invert(90%) sepia(16%) saturate(674%) hue-rotate(62deg)
-      brightness(103%) contrast(96%);
+    color: #92da8c;
   }
   button:active {
     scale: 1.05;
-    filter: invert(90%) sepia(16%) saturate(674%) hue-rotate(62deg)
-      brightness(113%) contrast(96%);
+    color: #92da8c;
   }
 </style>

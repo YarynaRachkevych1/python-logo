@@ -2,6 +2,7 @@
   import { io } from "socket.io-client";
   import { toastSuccess, toastError } from "./Toast.svelte";
   import { executeTurtleCommand } from "./Turtle.svelte";
+  import { setRunningState } from "./ButtonBar.svelte";
 
   const socket = io();
 
@@ -9,6 +10,10 @@
 
   export function emitRun(code) {
     socket.emit("run", code);
+  }
+
+  export function emitStop() {
+    socket.emit("stop");
   }
 
   socket.on("connect", () => {
@@ -30,13 +35,19 @@
     toastError("Server connection closed.");
   });
 
-  socket.on("execute", (command) => {
-    console.log("Received execute: ", command);
-    executeTurtleCommand(command);
+  socket.on("task", (data) => {
+    if (data.status === "running") {
+      setRunningState(true);
+    } else if (data.status === "done") {
+      setRunningState(false);
+    } else if (data.status === "failed") {
+      setRunningState(false);
+      toastError(data.message);
+      console.log("Error: ", data.message);
+    }
   });
 
-  socket.on("exception", (message) => {
-    console.log("Error: ", message);
-    toastError(message);
+  socket.on("execute", (command) => {
+    executeTurtleCommand(command);
   });
 </script>

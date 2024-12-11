@@ -1,10 +1,14 @@
 <script module>
-  import { emitRun } from "./Socket.svelte";
+  import { emitRun, emitStop } from "./Socket.svelte";
 
   let turtle;
 
   export function runTurtle(code) {
     emitRun(code);
+  }
+
+  export function stopTurtle() {
+    emitStop();
   }
 
   export function resetTurtle() {

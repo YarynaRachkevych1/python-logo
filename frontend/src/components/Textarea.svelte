@@ -8,14 +8,16 @@
   export function setCode(newCode) {
     code = newCode;
   }
+</script>
+
+<script>
+  let textAreaEl;
+  let numberLinesEl;
 
   function getLineNumbers(content) {
     const lines = content.split("\n").length;
     return Array.from({ length: lines }, (_, i) => i + 1).join("\n");
   }
-
-  let textAreaEl;
-  let numberLinesEl;
 
   function syncScroll() {
     if (numberLinesEl && textAreaEl) {
@@ -27,43 +29,41 @@
 <div class="m-5 h-100">
   <div class="textarea-container">
     <div
-      bind:this={numberLinesEl}
       class="line-numbers py-4"
-      style="background-color: #0f2534;
-      user-select: none;
-    color: #627d90;"
       role="presentation"
-      onmouseover={() => (numberLinesEl.style.overflow = "hidden")}
-      onfocus={() => (numberLinesEl.style.overflow = "hidden")}
-      onmouseleave={() => (numberLinesEl.style.overflow = "auto")}
-      onblur={() => (numberLinesEl.style.overflow = "auto")}
+      bind:this={numberLinesEl}
     >
-      <pre class="px-3">{getLineNumbers(code)}</pre>
+      <pre>{getLineNumbers(code)}</pre>
     </div>
     <textarea
-      bind:this={textAreaEl}
       class="form-control h-100 shadow-none py-4"
-      style="color: #cae5be; background-color: #153246;"
+      style="color: #cae5be;"
       placeholder="Type your code here..."
-      bind:value={code}
+      spellcheck="false"
       onscroll={syncScroll}
+      bind:this={textAreaEl}
+      bind:value={code}
     ></textarea>
   </div>
 </div>
 
 <style>
   .textarea-container {
+    background-color: #153246;
+    height: 100%;
     max-height: calc(90vh - 140px);
     display: flex;
-    height: 100%;
-    background-color: #153246;
     border-radius: 1rem;
-    overflow: hidden;
   }
 
   .line-numbers {
+    background-color: #0f2534;
     border-top-left-radius: 1rem;
     border-bottom-left-radius: 1rem;
+    width: 42px;
+    max-width: 42px;
+    text-align: center;
+    overflow: hidden;
     /* disable scrollbar */
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -74,20 +74,13 @@
 
   pre {
     line-height: 1.5;
-    width: 100%;
     color: #627d90;
-    text-align: right;
     user-select: none;
     font-size: large;
-    /* disable scrollbar */
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    &::-webkit-scrollbar {
-      display: none;
-    }
   }
 
   textarea {
+    background-color: #153246;
     border: none;
     resize: none;
     font-family: "Ubuntu Mono", monospace;

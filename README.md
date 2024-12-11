@@ -170,10 +170,8 @@ print(commands)
 1. Build the frontend:
 
    ```sh
-   cd frontend
-   npm install
-   npm run build
-   cd ..
+   npm install --prefix frontend/
+   npm run build --prefix frontend/
    ```
 
 2. Run the application:

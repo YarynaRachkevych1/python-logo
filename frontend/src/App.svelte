@@ -38,6 +38,9 @@
   :global(body) {
     background-color: #0a273b;
   }
+  :global(*) {
+    font-family: "Ubuntu", sans-serif;
+  }
   .right-container {
     min-width: 550px;
     flex: 1;
