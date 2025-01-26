@@ -73,6 +73,10 @@ class Interpreter:
                         yield from self._handle_movement(command)
                     case "hideturtle" | "showturtle" | "penup" | "pendown":
                         yield command
+                    case "setpos":
+                        command["x"] = self._evaluate(command["x"])
+                        command["y"] = self._evaluate(command["y"])
+                        yield command
                     case "setpencolor":
                         yield from self._handle_setpencolor(command)
                     case "setpensize":

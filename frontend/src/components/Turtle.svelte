@@ -55,6 +55,9 @@
       case "setpensize":
         turtle.setWidth(command.value);
         break;
+      case "setpos":
+        turtle.goto(command.x, command.y);
+        break;
       case "print":
         logToConsole(command.value);
         console.log(command.value);

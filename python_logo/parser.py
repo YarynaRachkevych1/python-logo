@@ -9,6 +9,7 @@ start: command+
     | setpencolor | setpensize | print
     | forward | backward | left | right
     | repeat | if_command | make | list_operations | func_def | func_call
+    | setpos
 
 number: NUMBER
 var_name: /[a-zA-Z_-]+/
@@ -47,6 +48,7 @@ variable: ":" var_name
 
 hideturtle: "hideturtle" | "ht"
 showturtle: "showturtle" | "st"
+setpos: "setpos" term term
 penup: "penup" | "pu"
 pendown: "pendown" | "pd"
 setpencolor: "setpencolor" color
@@ -162,6 +164,9 @@ class _LogoJsonTransformer(Transformer):
 
     def showturtle(self, items: list) -> dict:  # noqa: ARG002
         return {"name": "showturtle"}
+
+    def setpos(self, items: list) -> dict:
+        return {"name": "setpos", "x": items[0], "y": items[1]}
 
     def penup(self, items: list) -> dict:  # noqa: ARG002
         return {"name": "penup"}
