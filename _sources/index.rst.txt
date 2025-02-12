@@ -10,6 +10,7 @@ Welcome to python-logo's documentation!
    introduction
    installation
    usage
-   contributing
+   commands
    modules
+   contributing
    license

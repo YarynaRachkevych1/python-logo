@@ -20,4 +20,6 @@ It features:
 Features
 --------
 
-- **TO-DO**
+- Logo parser using **Lark**.
+- Custom interpreter for **Logo** commands.
+- Frontend made in **Svelte**.
