@@ -71,7 +71,7 @@ false: "false" | "False"
 make: "make" var_name logic_expr
 list_make: "list" var_name "[" logic_expr* "]"
 list_set: "set" variable number expr
-list_get: "get" variable number
+list_get: "get" variable expr
 list_insert: "insert" variable number expr
 list_remove: "remove" variable number
 list_remove_value: "remove_value" variable logic_expr

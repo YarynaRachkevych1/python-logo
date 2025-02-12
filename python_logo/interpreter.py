@@ -210,7 +210,8 @@ class Interpreter:
                 case "len":
                     return len(xs)
                 case "get":
-                    return xs[int(command["index"])]
+                    i = int(self._evaluate(command["index"]))
+                    return xs[i]
                 case "set":
                     xs[int(command["index"])] = self._evaluate(command["value"])
                     self._lists[command["list_name"]] = xs
