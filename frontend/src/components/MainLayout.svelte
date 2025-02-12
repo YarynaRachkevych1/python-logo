@@ -14,7 +14,7 @@
     class="w-full"
     style="min-height: calc(100vh - 80px)"
   >
-    <Pane defaultSize={50} minSize={30}>
+    <Pane defaultSize={50} minSize={35}>
       <ButtonBar />
       <PaneGroup direction="vertical" style="height: calc(100vh - 140px)">
         <Pane defaultSize={60} minSize={30}>
@@ -31,7 +31,7 @@
     <PaneResizer class="relative flex" tabindex="-1">
       <div class="resizer-hor {$themeColor}"></div>
     </PaneResizer>
-    <Pane defaultSize={50} minSize={30}>
+    <Pane defaultSize={50} minSize={35}>
       <Turtle />
       <InfoBar />
     </Pane>

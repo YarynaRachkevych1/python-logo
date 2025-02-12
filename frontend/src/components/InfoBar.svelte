@@ -2,7 +2,6 @@
   import Icon from "./Icon.svelte";
   import Modal from "./Modal.svelte";
 
-  let showLicenseModal = false;
   let showContactModal = false;
 </script>
 
@@ -10,13 +9,15 @@
   class="info-bar footer d-flex align-items-center justify-content-end w-100"
 >
   <div class="d-flex gap-4 p-0 me-5">
-    <button
-      class="p-0 m-0 text-nowrap"
-      title="License"
-      onclick={() => (showLicenseModal = true)}
+    <a
+      href="https://docs.google.com/document/d/1lKmTFzQS_-8qaYm1Kzjn6AgLKCVASsjux8dSGNsfayQ/edit?usp=sharing"
+      target="_blank"
+      rel="noopener noreferrer"
     >
-      <Icon name="license" message="License" />
-    </button>
+      <button class="p-0 m-0 text-nowrap" title="License">
+        <Icon name="license" message="Commands" />
+      </button>
+    </a>
     <button
       class="p-0 m-0 text-nowrap"
       title="Contact"
@@ -35,12 +36,6 @@
     </a>
   </div>
 </div>
-
-{#if showLicenseModal}
-  <Modal title="License" closeEvent={() => (showLicenseModal = false)}>
-    This software is licensed under the MIT license.
-  </Modal>
-{/if}
 
 {#if showContactModal}
   <Modal title="Contact us" closeEvent={() => (showContactModal = false)}>
